@@ -1,19 +1,33 @@
 <template>
-  <input @onUpdate:modelValue="logValue" v-model="index" />
+  <label>
+    {{ label }}
+    <input v-model="inputValue" />
+  </label>
+
 </template>
 
 <script>
 export default {
   name: 'input-value',
   props: {
-    index: String,
+    value: String,
+    label: String
   },
   methods: function () {
-    logValue()
-    {
-      console.log(this.index);
-    }
+
   },
+  computed: {
+    inputValue: {
+      get()
+      {
+        return this.value;
+      },
+      set(newValue)
+      {
+        return this.$emit('update:modelValue', newValue);
+      }
+    }
+  }
 }
 </script>
 

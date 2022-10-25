@@ -1,19 +1,22 @@
-<template>
+<template @calculate-index="getResult" >
   <div class="wrapper">
     <h1>FitCal</h1>
     <input-value
-        :index="weight"
+        :label="weightLabel"
+        :value="weight"
         v-model="weight"
     />
     <input-value
-        :index="height"
+        :label="heightLabel"
+        :value="height"
         v-model="height"
     />
-    <button-calculation
-
-    />
-    <result-output v-if="result"
-
+    <result
+        @calculate-index="turn"
+        :resultValue="result"
+        :weightValue="weight"
+        :heightValue="height"
+        :buttonClick="flag"
     />
   </div>
 
@@ -21,23 +24,40 @@
 
 <script>
 import InputValue from "@/components/input-value";
-import ButtonCalculation from "@/components/button-calculation";
-import ResultOutput from "@/components/result-output";
+import Result from "@/components/result";
 
 export default {
   name: 'App',
   components: {
-    ResultOutput,
-    ButtonCalculation,
+    Result,
     InputValue,
   },
+  emits: [
+    'calculate-index',
+  ],
   data() {
     return {
       weight: '0',
       height: '0',
       result: '0',
+      weightLabel: 'Weight',
+      heightLabel: 'Height',
+      flag: false,
     }
-  }
+  },
+  methods: {
+    turn() {
+      this.flag = true;
+      this.calculate();
+    },
+  },
+  computed: {
+    calculate() {
+      let numberResult = (+this.weight / ((+this.height) ** 2)).toFixed(2);
+      this.result = numberResult;
+      console.log(this.result);
+    }
+  },
 }
 </script>
 
