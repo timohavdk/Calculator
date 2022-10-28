@@ -18,17 +18,22 @@
         :heightValue="height"
         :buttonClick="flag"
     />
+    <api-component />
+
   </div>
 
 </template>
 
 <script>
+import axios from '../node_modules/axios'
 import InputValue from "@/components/input-value";
 import Result from "@/components/result";
+import ApiComponent from "@/components/api-component";
 
 export default {
   name: 'App',
   components: {
+    ApiComponent,
     Result,
     InputValue,
   },
